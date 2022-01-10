@@ -58,7 +58,7 @@ function quickSort(bytes::Vector{UInt8},
     io = IOBuffer()
     Arrow.write(io, result)
     seekstart(io)
-
     result_bytes = take!(io)
+
     return PyCall.pybytes(result_bytes)
 end
