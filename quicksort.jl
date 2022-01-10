@@ -1,12 +1,10 @@
 using Arrow, DataFrames
 using PyCall
 
-
 function swap_rows!(df::DataFrame, i::Int, j::Int)::Nothing
     df[i,:], df[j,:] = df[j,:], copy(df[i,:])
     return nothing
 end
-
 
 function partition(df::DataFrame,
                    sort_col::String,
@@ -29,7 +27,6 @@ function partition(df::DataFrame,
     return i
 end
 
-
 function quickSort!(df::DataFrame,
                     sort_col::String,
                     low::Int,
@@ -48,14 +45,13 @@ function quickSort!(df::DataFrame,
     return df
 end
 
-
 function quickSort(bytes::Vector{UInt8},
                    sort_col::String,
                    low::Int,
                    high::Int
                    )::PyObject
 
-    df = Arrow.Table(bytes) |> DataFrame
+    df = DataFrame(Arrow.Table(bytes))
 
     result = quickSort!(df, sort_col, low, high)
 
@@ -64,7 +60,5 @@ function quickSort(bytes::Vector{UInt8},
     seekstart(io)
 
     result_bytes = take!(io)
-    pybytes = PyCall.pybytes(result_bytes)
-
-    return pybytes
+    return PyCall.pybytes(result_bytes)
 end

@@ -19,7 +19,6 @@ def random_data(N, random_state=0):
 
     return df
 
-
 def quickSortJL(df, sort_col, low, high):
     jl = Julia(compiled_modules=False)
     jl.eval('include("quicksort.jl")')
