@@ -8,7 +8,7 @@ from utils import df_to_arrowbytes, arrowbytes_to_df
 
 
 def random_data(N, random_state=0):
-    np.random.seed(0)
+    np.random.seed(random_state)
 
     df = pd.DataFrame({
         "index": np.random.randint(10*N, size=N),
